@@ -1,0 +1,25 @@
+.news-app {
+  max-width: 1080px;
+  max-height: 2340px;
+  text-align: center;
+  background-color: lightgray;
+}
+
+.seach-bar {
+  display: flex;
+  position: relative;
+}
+
+.navigation-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+}
+
+.navigation {
+  width: 200px;
+  background-color: aquamarine;
+  border: 1px solid black;
+  cursor: pointer;
+}
