@@ -1,7 +1,9 @@
 import { TextField } from "@mui/material";
-import React from "react";
+import React, { useRef } from "react";
 
-export const SearchBar = () => {
+export const SearchBar = ({ searchText }) => {
+  const searchRef = useRef();
+
   return (
     <div className="search-bar">
       <TextField
@@ -9,6 +11,7 @@ export const SearchBar = () => {
         label="Search"
         type="search"
         variant="standard"
+        ref={searchRef}
       />
     </div>
   );
