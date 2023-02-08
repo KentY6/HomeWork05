@@ -1,18 +1,32 @@
 import { TextField } from "@mui/material";
-import React, { useRef } from "react";
+import React, { useState } from "react";
+import SearchIcon from "@mui/icons-material/Search";
 
-export const SearchBar = ({ searchText }) => {
-  const searchRef = useRef();
+export const SearchBar = ({ reorderWithSearch }) => {
+  const [searchText, setSearchText] = useState("");
+
+  const getInputText = (e) => {
+    e.preventDefault();
+    if (searchText === "") return;
+    reorderWithSearch(searchText);
+    setSearchText("");
+  };
 
   return (
     <div className="search-bar">
-      <TextField
-        id="standard-search"
-        label="Search"
-        type="search"
-        variant="standard"
-        ref={searchRef}
-      />
+      <form className="search-field" onSubmit={getInputText}>
+        <TextField
+          id="standard-search"
+          label="Search"
+          type="search"
+          variant="standard"
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+        />
+        <div className="search-icon" onClick={getInputText}>
+          <SearchIcon />
+        </div>
+      </form>
     </div>
   );
 };

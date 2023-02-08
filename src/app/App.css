@@ -1,9 +1,21 @@
 .news-app {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   max-width: 1080px;
   min-height: 1920px;
   text-align: center;
   border-radius: 5px;
+}
+.main-title {
   background-color: pink;
+}
+
+.search-field {
+  display: flex;
+  justify-content: center;
+}
+.search-icon {
+  margin-top: 15px;
+  cursor: pointer;
 }
 
 .tabs-container {
@@ -12,14 +24,10 @@
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
-/* .tabs-container::-webkit-scrollbar {
-  display: none;
-} */
 
 .non-active-tab {
   width: 200px;
   height: 20px;
-  background-color: gray;
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 15px;
@@ -30,22 +38,21 @@
 .active-tab {
   width: 200px;
   height: 20px;
-  background-color: lightblue;
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 15px;
   padding-right: 15px;
   cursor: pointer;
   white-space: nowrap;
-}
-.all-article {
-  background-color: whitesmoke;
+  font-weight: bold;
+  border-bottom: 2px solid blue;
 }
 
 .article {
   margin: 10px;
   padding: 15px;
   border: 2px solid black;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
+  box-shadow: 5px 5px 5px lightgray;
 }

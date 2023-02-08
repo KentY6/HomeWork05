@@ -9,30 +9,41 @@ export const NewsApp = () => {
   const [newsArticle, setNewsArticle] = useState([]);
   const [newsCategory, setNewsCategory] = useState("business");
 
-  const inputNewsCategory = (newsCategory) => {
-    setNewsCategory(newsCategory);
+  const inputNewsCategory = (categoryId) => {
+    setNewsCategory(categoryId);
   };
 
+  // 検索処理、SearchBar(component)に引数を渡して検索値を受け取る
+  const reorderWithSearch = (text) => {
+    setNewsArticle(
+      newsArticle.filter(
+        (reorderNews) => reorderNews.title.indexOf(text) !== -1
+      )
+    );
+  };
+
+  // APIキー
   const apiKey = "e7bc6cbf3bea44fdbb41e749163bdc8f";
 
   useEffect(() => {
+    // エンドポイントはカテゴリーのみ切り替えるようにする
     axios
       .get(
         `https://newsapi.org/v2/top-headlines?country=jp&category=${newsCategory}&apiKey=${apiKey}`
       )
       .then((res) => {
-        console.log(res.data.articles);
         setNewsArticle(res.data.articles);
       })
       .catch((err) => {
         console.log(err);
       });
+    // カテゴリーがインプットされるたびにAPIを取得しなおす
   }, [newsCategory]);
 
   return (
     <div className="news-app">
       <Title TitleName={"News App"} />
-      <SearchBar />
+      <SearchBar reorderWithSearch={reorderWithSearch} />
       <div className="tabs-container">
         <TabButton
           tabName={"ビジネス"}

@@ -6,12 +6,14 @@ export const TabButton = ({
   inputNewsCategory,
   newsCategory,
 }) => {
+  // APIのエンドポイントにクリックしたカテゴリーを渡す
   const toggleActive = () => {
     inputNewsCategory(category);
   };
 
   return (
     <div
+      // タブを押したカテゴリーのみアクティブにする
       className={newsCategory === category ? "active-tab" : "non-active-tab"}
       onClick={toggleActive}
     >

@@ -6,6 +6,7 @@ export const Article = ({ newsArticle }) => {
       {newsArticle.map((source, index) => (
         <div
           className="article"
+          // 記事をクリックするとリンク先に飛ぶ
           onClick={() => window.open(source.url)}
           key={index}
         >
