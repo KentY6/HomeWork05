@@ -3,13 +3,13 @@ import React, { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 
 export const SearchBar = ({ reorderWithSearch }) => {
-  const [searchText, setSearchText] = useState("");
+  const [searchWord, setSearchWord] = useState("");
 
   const getInputText = (e) => {
     e.preventDefault();
-    if (searchText === "") return;
-    reorderWithSearch(searchText);
-    setSearchText("");
+    if (searchWord === "") return;
+    reorderWithSearch(searchWord);
+    setSearchWord("");
   };
 
   return (
@@ -20,8 +20,8 @@ export const SearchBar = ({ reorderWithSearch }) => {
           label="Search"
           type="search"
           variant="standard"
-          value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
+          value={searchWord}
+          onChange={(e) => setSearchWord(e.target.value)}
         />
         <div className="search-icon" onClick={getInputText}>
           <SearchIcon />

@@ -6,14 +6,30 @@ import { Article } from "../components/Article";
 import axios from "axios";
 
 export const NewsApp = () => {
-  const [newsArticle, setNewsArticle] = useState([]);
-  const [newsCategory, setNewsCategory] = useState("business");
+  // タブの名前とAPIのエンドポイントを紐づけて格納しておく。
+  const articleCategory = [
+    { tabName: "ビジネス", categoryName: "business" },
+    { tabName: "エンターテイメント", categoryName: "entertainment" },
+    { tabName: "一般", categoryName: "general" },
+    { tabName: "健康", categoryName: "health" },
+    { tabName: "科学", categoryName: "science" },
+    { tabName: "スポーツ", categoryName: "sports" },
+    { tabName: "テクノロジー", categoryName: "technology" },
+  ];
 
+  // APIで取得した記事を入れる
+  const [newsArticle, setNewsArticle] = useState([]);
+  // カテゴリーを入れる
+  const [newsCategory, setNewsCategory] = useState(
+    articleCategory[0].categoryName
+  );
+
+  // タブからアクティブなカテゴリーを引数で受け取る
   const inputNewsCategory = (categoryId) => {
     setNewsCategory(categoryId);
   };
 
-  // 検索処理、SearchBar(component)に引数を渡して検索値を受け取る
+  // 検索処理、SearchBar(component)に引数を渡してテキストフォームに入力された値を受け取る
   const reorderWithSearch = (text) => {
     setNewsArticle(
       newsArticle.filter(
@@ -26,7 +42,7 @@ export const NewsApp = () => {
   const apiKey = "e7bc6cbf3bea44fdbb41e749163bdc8f";
 
   useEffect(() => {
-    // エンドポイントはカテゴリーのみ切り替えるようにする
+    // エンドポイントのカテゴリーをStateで切り替えるようにする
     axios
       .get(
         `https://newsapi.org/v2/top-headlines?country=jp&category=${newsCategory}&apiKey=${apiKey}`
@@ -46,50 +62,50 @@ export const NewsApp = () => {
       <SearchBar reorderWithSearch={reorderWithSearch} />
       <div className="tabs-container">
         <TabButton
-          tabName={"ビジネス"}
-          category={"business"}
+          tabName={articleCategory[0].tabName}
+          activeTabCategory={articleCategory[0].categoryName}
           newsCategory={newsCategory}
           inputNewsCategory={inputNewsCategory}
           newsArticle={newsArticle}
         />
         <TabButton
-          tabName={"エンターテイメント"}
-          category={"entertainment"}
+          tabName={articleCategory[1].tabName}
+          activeTabCategory={articleCategory[1].categoryName}
           newsCategory={newsCategory}
           inputNewsCategory={inputNewsCategory}
           newsArticle={newsArticle}
         />
         <TabButton
-          tabName={"一般"}
-          category={"general"}
+          tabName={articleCategory[2].tabName}
+          activeTabCategory={articleCategory[2].categoryName}
           newsCategory={newsCategory}
           inputNewsCategory={inputNewsCategory}
           newsArticle={newsArticle}
         />
         <TabButton
-          tabName={"健康"}
-          category={"health"}
+          tabName={articleCategory[3].tabName}
+          activeTabCategory={articleCategory[3].categoryName}
           newsCategory={newsCategory}
           inputNewsCategory={inputNewsCategory}
           newsArticle={newsArticle}
         />
         <TabButton
-          tabName={"科学"}
-          category={"science"}
+          tabName={articleCategory[4].tabName}
+          activeTabCategory={articleCategory[4].categoryName}
           newsCategory={newsCategory}
           inputNewsCategory={inputNewsCategory}
           newsArticle={newsArticle}
         />
         <TabButton
-          tabName={"スポーツ"}
-          category={"sports"}
+          tabName={articleCategory[5].tabName}
+          activeTabCategory={articleCategory[5].categoryName}
           newsCategory={newsCategory}
           inputNewsCategory={inputNewsCategory}
           newsArticle={newsArticle}
         />
         <TabButton
-          tabName={"テクノロジー"}
-          category={"technology"}
+          tabName={articleCategory[6].tabName}
+          category={articleCategory[6].categoryName}
           newsCategory={newsCategory}
           inputNewsCategory={inputNewsCategory}
           newsArticle={newsArticle}

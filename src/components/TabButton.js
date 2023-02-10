@@ -2,19 +2,21 @@ import React from "react";
 
 export const TabButton = ({
   tabName,
-  category,
+  activeTabCategory,
   inputNewsCategory,
   newsCategory,
 }) => {
-  // APIのエンドポイントにクリックしたカテゴリーを渡す
+  // クリックしたカテゴリーを渡す
   const toggleActive = () => {
-    inputNewsCategory(category);
+    inputNewsCategory(activeTabCategory);
   };
 
   return (
     <div
       // タブを押したカテゴリーのみアクティブにする
-      className={newsCategory === category ? "active-tab" : "non-active-tab"}
+      className={
+        newsCategory === activeTabCategory ? "active-tab" : "non-active-tab"
+      }
       onClick={toggleActive}
     >
       {tabName}
