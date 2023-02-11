@@ -24,18 +24,20 @@ export const NewsApp = () => {
     articleCategory[0].categoryName
   );
 
+  const [filterNewsArticle, setFilterNewsArticle] = useState([]);
+
   // タブからアクティブなカテゴリーを引数で受け取る
   const inputNewsCategory = (categoryId) => {
     setNewsCategory(categoryId);
+    setFilterNewsArticle([]);
   };
 
   // 検索処理、SearchBar(component)に引数を渡してテキストフォームに入力された値を受け取る
   const reorderWithSearch = (text) => {
-    setNewsArticle(
-      newsArticle.filter(
-        (reorderNews) => reorderNews.title.indexOf(text) !== -1
-      )
+    const newsArticleFilter = newsArticle.filter(
+      (reorderNews) => reorderNews.title.indexOf(text) !== -1
     );
+    setFilterNewsArticle(newsArticleFilter);
   };
 
   // APIキー
@@ -56,9 +58,11 @@ export const NewsApp = () => {
     // カテゴリーがインプットされるたびにAPIを取得しなおす
   }, [newsCategory]);
 
+  console.log(filterNewsArticle.length === 0);
+
   return (
     <div className="news-app">
-      <Title TitleName={"News App"} />
+      <Title titleName={"News App"} />
       <SearchBar reorderWithSearch={reorderWithSearch} />
       <div className="tabs-container">
         <TabButton
@@ -111,7 +115,12 @@ export const NewsApp = () => {
           newsArticle={newsArticle}
         />
       </div>
-      <Article newsArticle={newsArticle} />
+
+      <Article
+        newsArticle={
+          filterNewsArticle.length === 0 ? newsArticle : filterNewsArticle
+        }
+      />
     </div>
   );
 };

@@ -7,9 +7,8 @@ export const SearchBar = ({ reorderWithSearch }) => {
 
   const getInputText = (e) => {
     e.preventDefault();
-    if (searchWord === "") return;
     reorderWithSearch(searchWord);
-    setSearchWord("");
+    // setSearchWord("");
   };
 
   return (
