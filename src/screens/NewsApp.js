@@ -17,7 +17,7 @@ export const NewsApp = () => {
     { tabName: "テクノロジー", categoryName: "technology" },
   ];
 
-  // APIで取得した記事を入れる
+  // APIで取得したデータを入れる
   const [newsArticle, setNewsArticle] = useState([]);
   // カテゴリーを入れる
   const [newsCategory, setNewsCategory] = useState(
@@ -105,7 +105,7 @@ export const NewsApp = () => {
         />
         <TabButton
           tabName={articleCategory[6].tabName}
-          category={articleCategory[6].categoryName}
+          activeTabCategory={articleCategory[6].categoryName}
           newsCategory={newsCategory}
           inputNewsCategory={inputNewsCategory}
           newsArticle={newsArticle}
