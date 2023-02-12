@@ -23,25 +23,31 @@ export const NewsApp = () => {
   const [newsCategory, setNewsCategory] = useState(
     articleCategory[0].categoryName
   );
-
+  // 検索された記事
   const [filterNewsArticle, setFilterNewsArticle] = useState([]);
 
+  // 検索ボタンが押されたかどうかのサイン
+  const [isSearched, setIsSearched] = useState(false);
+
+  // 検索結果が空かどうかのサイン;
+  const [notFoundSign, setNotFoundSign] = useState(false);
+
   // タブからアクティブなカテゴリーを引数で受け取る
-  const inputNewsCategory = (categoryId) => {
-    setNewsCategory(categoryId);
+  const inputNewsCategory = (activeTabCategory) => {
+    setNewsCategory(activeTabCategory);
     setFilterNewsArticle([]);
   };
 
   // 検索処理、SearchBar(component)に引数を渡してテキストフォームに入力された値を受け取る
-  const reorderWithSearch = (text) => {
+  const reorderWithSearch = (searchWord) => {
     const newsArticleFilter = newsArticle.filter(
-      (reorderNews) => reorderNews.title.indexOf(text) !== -1
+      (reorderNews) => reorderNews.title.indexOf(searchWord) !== -1
     );
     setFilterNewsArticle(newsArticleFilter);
   };
 
   // APIキー
-  const apiKey = "e7bc6cbf3bea44fdbb41e749163bdc8f";
+  const apiKey = process.env.REACT_APP_API_KEY;
 
   useEffect(() => {
     // エンドポイントのカテゴリーをStateで切り替えるようにする
@@ -58,12 +64,24 @@ export const NewsApp = () => {
     // カテゴリーがインプットされるたびにAPIを取得しなおす
   }, [newsCategory]);
 
-  console.log(filterNewsArticle.length === 0);
+  // 検索結果が空の場合のトグル
+  useEffect(() => {
+    if (isSearched === true)
+      if (filterNewsArticle.length === 0) setNotFoundSign(true);
+      else setNotFoundSign(false);
+  }, [reorderWithSearch]);
+
+  //   if (filterNewsArticle.length === 0) setNotFoundSign(true);
+  //   else setNotFoundSign(false);
 
   return (
     <div className="news-app">
       <Title titleName={"News App"} />
-      <SearchBar reorderWithSearch={reorderWithSearch} />
+      <SearchBar
+        reorderWithSearch={reorderWithSearch}
+        filterNewsArticle={filterNewsArticle}
+        setIsSearched={setIsSearched}
+      />
       <div className="tabs-container">
         <TabButton
           tabName={articleCategory[0].tabName}
@@ -71,6 +89,8 @@ export const NewsApp = () => {
           newsCategory={newsCategory}
           inputNewsCategory={inputNewsCategory}
           newsArticle={newsArticle}
+          setNotFoundSign={setNotFoundSign}
+          setIsSearched={setIsSearched}
         />
         <TabButton
           tabName={articleCategory[1].tabName}
@@ -78,6 +98,8 @@ export const NewsApp = () => {
           newsCategory={newsCategory}
           inputNewsCategory={inputNewsCategory}
           newsArticle={newsArticle}
+          setNotFoundSign={setNotFoundSign}
+          setIsSearched={setIsSearched}
         />
         <TabButton
           tabName={articleCategory[2].tabName}
@@ -85,6 +107,8 @@ export const NewsApp = () => {
           newsCategory={newsCategory}
           inputNewsCategory={inputNewsCategory}
           newsArticle={newsArticle}
+          setNotFoundSign={setNotFoundSign}
+          setIsSearched={setIsSearched}
         />
         <TabButton
           tabName={articleCategory[3].tabName}
@@ -92,6 +116,8 @@ export const NewsApp = () => {
           newsCategory={newsCategory}
           inputNewsCategory={inputNewsCategory}
           newsArticle={newsArticle}
+          setNotFoundSign={setNotFoundSign}
+          setIsSearched={setIsSearched}
         />
         <TabButton
           tabName={articleCategory[4].tabName}
@@ -99,6 +125,8 @@ export const NewsApp = () => {
           newsCategory={newsCategory}
           inputNewsCategory={inputNewsCategory}
           newsArticle={newsArticle}
+          setNotFoundSign={setNotFoundSign}
+          setIsSearched={setIsSearched}
         />
         <TabButton
           tabName={articleCategory[5].tabName}
@@ -106,6 +134,8 @@ export const NewsApp = () => {
           newsCategory={newsCategory}
           inputNewsCategory={inputNewsCategory}
           newsArticle={newsArticle}
+          setNotFoundSign={setNotFoundSign}
+          setIsSearched={setIsSearched}
         />
         <TabButton
           tabName={articleCategory[6].tabName}
@@ -113,6 +143,8 @@ export const NewsApp = () => {
           newsCategory={newsCategory}
           inputNewsCategory={inputNewsCategory}
           newsArticle={newsArticle}
+          setNotFoundSign={setNotFoundSign}
+          setIsSearched={setIsSearched}
         />
       </div>
 
@@ -120,7 +152,16 @@ export const NewsApp = () => {
         newsArticle={
           filterNewsArticle.length === 0 ? newsArticle : filterNewsArticle
         }
+        notFoundSign={notFoundSign}
+        filterNewsArticle={filterNewsArticle}
       />
+      <div
+        className={
+          notFoundSign === true ? "active-searched" : "non-active-searched"
+        }
+      >
+        検索結果はありません。
+      </div>
     </div>
   );
 };

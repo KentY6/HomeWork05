@@ -1,8 +1,17 @@
 import React from "react";
 
-export const Article = ({ newsArticle }) => {
+export const Article = ({ newsArticle, notFoundSign, filterNewsArticle }) => {
   return (
-    <div className="all-article">
+    <div
+      className={notFoundSign === false ? "all-article" : "non-active-searched"}
+    >
+      <div>
+        件数：
+        {filterNewsArticle.length === 0
+          ? newsArticle.length
+          : filterNewsArticle.length}
+        件
+      </div>
       {newsArticle.map((source, index) => (
         <div
           className="article"

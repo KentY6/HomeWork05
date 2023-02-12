@@ -5,10 +5,14 @@ export const TabButton = ({
   activeTabCategory,
   inputNewsCategory,
   newsCategory,
+  setNotFoundSign,
+  setIsSearched,
 }) => {
   // クリックしたカテゴリーを渡す
   const toggleActive = () => {
     inputNewsCategory(activeTabCategory);
+    setNotFoundSign(false);
+    setIsSearched(false);
   };
 
   return (
